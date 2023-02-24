@@ -5,8 +5,11 @@ const instance = axios.create({
     withCredentials: true
 })
 
-export const usersApi = {
+export const userApi = {
     getUsers() {
-        return instance.get(`/user`);
+        return instance.get(`/user/${username}`);
+    },
+    getRepositories(){
+        return instance.get(`/user/${username}/repos`)
     }
 }

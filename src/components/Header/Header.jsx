@@ -1,22 +1,25 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import s from './Header.module.css';
 import ghImage from "./../../img/gh.svg";
 
-export const Header = () => {
+export const Header = ({userName, setUserName, onEnterPressed, searchInput}) => {
 
-    let [user, setUser] = useState(null);
-    let [repositiries, setRepositories] = useState(null);
-
-    useEffect(() => {
-      getUsers().then(response => response.json())
-      .then(data => user(data.message))
-    })
-
+    const onSearchUser = (e) => {
+      setUserName(e.currentTarget.value)
+    }
 
   return (
     <div className={s.header}>
       <img className={s.ghImg} src={ghImage} alt='GH-img' />
-      <input className={s.headerInput} type="search" placeholder="Enter username" />
+      <input 
+          className={s.headerInput} 
+          type="search" 
+          placeholder="Enter username" 
+          value={userName}
+          onChange={onSearchUser}
+          onKeyDown={onEnterPressed}
+          ref={searchInput}
+           />
     </div>
   );
 }

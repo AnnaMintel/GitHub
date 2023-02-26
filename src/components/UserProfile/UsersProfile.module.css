@@ -1,0 +1,38 @@
+.userWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.userProfile {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .userPhoto {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 30px;
+  }
+  
+  .userPhoto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .userInfo {
+    margin: 0 0 0 30px;
+    padding: 0px;
+    font-size: 14px;
+  }
+
+  .followers {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .followers p {
+    margin-right: 5px;
+  }

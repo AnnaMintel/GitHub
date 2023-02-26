@@ -19,6 +19,7 @@
     height: 30px;
     width: 300px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .headerInput :active, :hover, :focus {

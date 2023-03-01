@@ -10,10 +10,10 @@
     list-style: none;
     margin: -20px;
     padding: 0;
-    height: 400px;
+    max-height: 400px;
     overflow-y: scroll;
   }
-  
+
   li {
     font-size: 13px;
     margin: 0px;

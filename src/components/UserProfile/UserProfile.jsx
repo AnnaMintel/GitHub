@@ -17,9 +17,6 @@ export const UserProfile = ({ user }) => {
           </div>
         </div>
       </div>
-      <div>
-        <h2>Repositories</h2>
-      </div>
     </div>
   );
 };

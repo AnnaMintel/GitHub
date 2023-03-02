@@ -9,7 +9,7 @@ export const UserProfile = ({ user }) => {
           <img src={user.avatar_url} alt="User Photo" />
         </div>
         <div  className={s.userInfo}>
-          <h3><a href="https://github.com/AnnaMintel" target="_blank">{user.name}</a></h3>
+          <h3><a href={user.html_url} target="_blank">{user.name}</a></h3>
           <p>{user.bio}</p>
           <div className={s.followers}>
             <p>Followers: {user.followers}</p>

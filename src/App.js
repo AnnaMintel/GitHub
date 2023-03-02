@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import './App.css';
+import searchImg from './img/search.svg';
+import userImg from './img/user.svg';
+import reposNotFoundImg from './img/notFound.svg';
 import { Header } from './components/Header/Header';
 import { Repostories } from './components/Repostories/Repostories';
 import { UserProfile } from './components/UserProfile/UserProfile';
@@ -44,14 +47,33 @@ function App() {
   }, [userLogin])
 
   return (
-    <div>
+    <div className='mainContainer'>
       <Header userName={userName} setUserName={setUserName}
         onEnterPressed={onEnterPressed}
         searchInput={searchInput} />
-      {isDropdownVisible && users && <UsersList users={users} setUserLogin={setUserLogin} />}
+
+      {!users && <div className='startPage'>
+        <img src={searchImg} alt="Search" />
+        <h3>Start searching <br /> a GitHub user</h3>
+      </div>}
+
+      {isDropdownVisible && users && <UsersList users={users} setUserLogin={setUserLogin} /> }
+      
+      { !user && !userLogin && <div className='userNotFoundPage'>
+          <img src={userImg} alt="UserNotFound" />
+          <h3>User not found</h3>
+        </div>
+      }
+
       <div className='content'>
-      {user && <UserProfile user={user} />}
-      {user && <Repostories repositories={repositories} /> }
+        {user && <UserProfile user={user} />}
+        {user && repositories.length > 0 && <Repostories repositories={repositories} />}
+
+        {user && repositories.length === 0 && <div className='repositoriesNotFoundPage'>
+          <img src={reposNotFoundImg} alt="RepositoriesNotFoundPage" />
+          <h3>Repositories not found</h3>
+        </div>}
+
       </div>
     </div>
   );

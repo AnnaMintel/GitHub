@@ -2,7 +2,6 @@ import React from 'react';
 import s from './Repostories.module.css';
 
 export const Repostories = ({repositories}) => {
-
     
   return (
     <div className={s.container}>

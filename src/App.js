@@ -7,6 +7,7 @@ import { Header } from './components/Header/Header';
 import { Repostories } from './components/Repostories/Repostories';
 import { UserProfile } from './components/UserProfile/UserProfile';
 import { UsersList } from './components/UsersList/UsersList';
+import { Preloader } from './components/Preloader/Preloader';
 
 function App() {
 
@@ -73,8 +74,10 @@ function App() {
           <img src={reposNotFoundImg} alt="RepositoriesNotFoundPage" />
           <h3>Repositories not found</h3>
         </div>}
-
       </div>
+
+      <Preloader />
+
     </div>
   );
 }

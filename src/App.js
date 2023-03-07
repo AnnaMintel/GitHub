@@ -17,14 +17,19 @@ function App() {
   const [userLogin, setUserLogin] = useState('');
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [repositories, setRepositories] = useState(null);
+  const [preloader, setPreloader] = useState(false);
 
   const searchInput = useRef(null);
 
   const onEnterPressed = async (e) => {
     if (e.keyCode === 13 && userName.trim() !== '') {
+      setPreloader(true)
       await fetch(`https://api.github.com/search/users?q=${userName}`)
         .then(res => res.json())
-        .then(data => setUsers(data.items))
+        .then(data => {
+          setUsers(data.items);
+          setPreloader(false);
+        })
       searchInput.current.blur();
       setIsDropdownVisible(true);
     }
@@ -32,51 +37,60 @@ function App() {
 
   useEffect(() => {
     if (userLogin) {
+      setPreloader(true)
       fetch(`https://api.github.com/users/${userLogin}`)
         .then(res => res.json())
-        .then(data => setUser(data))
+        .then(data => {
+          setUser(data);
+          setPreloader(false);
+        })
       setIsDropdownVisible(false);
     }
   }, [userLogin])
 
   useEffect(() => {
     if (userLogin) {
+      setPreloader(true)
       fetch(`https://api.github.com/users/${userLogin}/repos`)
         .then(res => res.json())
-        .then(data => setRepositories(data))
+        .then(data => {
+          setRepositories(data);
+          setPreloader(false);
+        })
     }
   }, [userLogin])
 
   return (
     <div className='mainContainer'>
+
       <Header userName={userName} setUserName={setUserName}
         onEnterPressed={onEnterPressed}
         searchInput={searchInput} />
 
-      {!users && <div className='startPage'>
+      {!users && !preloader && <div className='startPage'>
         <img src={searchImg} alt="Search" />
         <h3>Start searching <br /> a GitHub user</h3>
       </div>}
 
-      {isDropdownVisible && users && <UsersList users={users} setUserLogin={setUserLogin} /> }
-      
-      { !user && !userLogin  && !onEnterPressed && <div className='userNotFoundPage'>
-          <img src={userImg} alt="UserNotFound" />
-          <h3>User not found</h3>
-        </div>
+      {isDropdownVisible && users && <UsersList users={users} setUserLogin={setUserLogin} />}
+
+      {!user && !preloader && !userLogin && !onEnterPressed && <div className='userNotFoundPage'>
+        <img src={userImg} alt="UserNotFound" />
+        <h3>User not found</h3>
+      </div>
       }
 
       <div className='content'>
-        {user && <UserProfile user={user} />}
-        {user && repositories && <Repostories repositories={repositories} />}
+        {user && !preloader && <UserProfile user={user} />}
+        {user && !preloader && repositories && <Repostories repositories={repositories} />}
 
-        {user && !repositories && <div className='repositoriesNotFoundPage'>
+        {user && !preloader && !repositories && <div className='repositoriesNotFoundPage'>
           <img src={reposNotFoundImg} alt="RepositoriesNotFoundPage" />
           <h3>Repositories not found</h3>
         </div>}
       </div>
 
-      <Preloader />
+      {preloader && <Preloader />}
 
     </div>
   );

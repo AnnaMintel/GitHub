@@ -18,6 +18,7 @@ function App() {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [repositories, setRepositories] = useState(null);
   const [preloader, setPreloader] = useState(false);
+  const [repoPreloader, setRepoPreloader] = useState(false);
 
   const searchInput = useRef(null);
 
@@ -50,12 +51,12 @@ function App() {
 
   useEffect(() => {
     if (userLogin) {
-      setPreloader(true)
+      setPreloader(true);
       fetch(`https://api.github.com/users/${userLogin}/repos`)
         .then(res => res.json())
         .then(data => {
           setRepositories(data);
-          setPreloader(false);
+          setRepoPreloader(false);
         })
     }
   }, [userLogin])
@@ -82,12 +83,14 @@ function App() {
 
       <div className='content'>
         {user && !preloader && <UserProfile user={user} />}
-        {user && !preloader && repositories && <Repostories repositories={repositories} />}
 
-        {user && !preloader && !repositories && <div className='repositoriesNotFoundPage'>
-          <img src={reposNotFoundImg} alt="RepositoriesNotFoundPage" />
-          <h3>Repositories not found</h3>
-        </div>}
+        <div className='repoWrapper'>
+          {user && !preloader && repositories.length > 0 && <Repostories repositories={repositories} />}
+          {user && !preloader && repositories.length === 0 && <div className='repositoriesNotFoundPage'>
+            <img src={reposNotFoundImg} alt="RepositoriesNotFoundPage" />
+            <h3>Repositories not found</h3>
+          </div>}
+        </div>
       </div>
 
       {preloader && <Preloader />}

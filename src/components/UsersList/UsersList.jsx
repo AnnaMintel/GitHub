@@ -8,7 +8,7 @@ export const UsersList = ({ users, setUserLogin }) => {
 
   return (
     <div className={s.usersList}>
-      <ul>
+      <ul style={users?.length > 9 ? {overflowY: 'scroll'} : {}}>
         {users?.map((user) => (
           <li onClick={() => onChooseUser(user.login)}>{user.login}</li>
         ))}

@@ -8,8 +8,7 @@
     list-style: none;
     margin: -20px;
     padding: 0;
-    max-height: 400px;
-    overflow-y: scroll;
+    max-height: 300px;
   }
 
   li {

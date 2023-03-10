@@ -75,7 +75,7 @@ function App() {
 
       {isDropdownVisible && users && <UsersList users={users} setUserLogin={setUserLogin} />}
 
-      {!user && !preloader && !userLogin && !onEnterPressed && <div className='userNotFoundPage'>
+      {!preloader && users?.length === 0  && <div className='userNotFoundPage'>
         <img src={userImg} alt="UserNotFound" />
         <h3>User not found</h3>
       </div>
@@ -85,11 +85,14 @@ function App() {
         {user && !preloader && <UserProfile user={user} />}
 
         <div className='repoWrapper'>
-          {user && !preloader && repositories.length > 0 && <Repostories repositories={repositories} />}
-          {user && !preloader && repositories.length === 0 && <div className='repositoriesNotFoundPage'>
+          {user && !preloader && repositories?.length > 0 && <Repostories repositories={repositories} />}
+
+          {user && !preloader && repositories?.length === 0 && <div className='repositoriesNotFoundPage'>
             <img src={reposNotFoundImg} alt="RepositoriesNotFoundPage" />
             <h3>Repositories not found</h3>
+
           </div>}
+
         </div>
       </div>
 

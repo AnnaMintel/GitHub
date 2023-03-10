@@ -24,7 +24,8 @@ function App() {
 
   const onEnterPressed = async (e) => {
     if (e.keyCode === 13 && userName.trim() !== '') {
-      setPreloader(true)
+      setPreloader(true);
+      setUser(null);
       await fetch(`https://api.github.com/search/users?q=${userName}`)
         .then(res => res.json())
         .then(data => {
